@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLOCK//MIND - Neuroevolution Flight Lab</title>
+<meta name="description" content="Watch 200 neural networks learn to fly. A Flappy Bird population evolving live in your browser - real-time fitness telemetry, champion brain inspection, and a full generation archive.">
+<meta name="theme-color" content="#0a0c0e">
+<meta property="og:title" content="FLOCK//MIND - Neuroevolution Flight Lab">
+<meta property="og:description" content="200 birds. One tournament. Zero training data. Neuroevolution running live in your browser.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="boot">
+  <div class="boot-inner">
+    <div class="boot-title">FLOCK//MIND</div>
+    <div class="boot-lines" id="bootLines"></div>
+  </div>
+</div>
+
+<header id="topbar">
+  <div class="brand">
+    <span class="brand-mark">FLOCK//MIND</span>
+    <span class="brand-sub">NEUROEVOLUTION FLIGHT LAB</span>
+  </div>
+  <div class="top-status">
+    <span class="stat-chip"><i class="led" id="modeLed"></i><span id="modeLabel">EVOLVING</span></span>
+    <span class="stat-chip dim">POP 200</span>
+    <span class="stat-chip dim"><span id="fps">--</span> FPS</span>
+  </div>
+</header>
+
+<main id="layout">
+  <section id="stageWrap" class="panel">
+    <div class="panel-tag">FLIGHT CHAMBER</div>
+    <div id="stageBox">
+      <canvas id="stage" width="480" height="640"></canvas>
+      <div id="archiveBanner" class="hidden">
+        <span id="archiveText">ARCHIVE // GEN 1 CHAMPION</span>
+        <button id="backToLive">RETURN TO LIVE</button>
+      </div>
+    </div>
+  </section>
+
+  <aside id="rail">
+    <section class="panel" id="telemetryPanel">
+      <div class="panel-tag">TELEMETRY</div>
+      <div class="tele-grid">
+        <div class="tele"><label>GENERATION</label><b id="tGen">0</b></div>
+        <div class="tele"><label>ALIVE</label><b id="tAlive">0</b></div>
+        <div class="tele"><label>SCORE</label><b id="tScore">0</b></div>
+        <div class="tele"><label>BEST EVER</label><b id="tBest">0</b></div>
+        <div class="tele"><label>GEN BEST FIT</label><b id="tGenBest">0</b></div>
+        <div class="tele"><label>GEN MEAN FIT</label><b id="tMean">0</b></div>
+        <div class="tele"><label>MUT RATE</label><b>0.12</b></div>
+        <div class="tele"><label>SIM CLOCK</label><b id="tClock">0.0s</b></div>
+      </div>
+      <div class="genome-line">CHAMPION GENOME <span id="tChecksum">--------</span></div>
+    </section>
+
+    <section class="panel" id="chartPanel">
+      <div class="panel-tag">FITNESS BY GENERATION</div>
+      <canvas id="chart"></canvas>
+      <div class="legend">
+        <span><i class="sw sw-best"></i>BEST</span>
+        <span><i class="sw sw-mean"></i>MEAN</span>
+        <span class="legend-hint">CLICK TO INSPECT GEN</span>
+      </div>
+    </section>
+
+    <section class="panel" id="netPanel">
+      <div class="panel-tag">LEADER BRAIN <span id="netGen" class="panel-tag-dim"></span></div>
+      <canvas id="net"></canvas>
+    </section>
+
+    <section class="panel" id="archivePanel">
+      <div class="panel-tag">GENERATION ARCHIVE</div>
+      <input type="range" id="scrub" min="1" max="1" value="1" disabled>
+      <div class="archive-row">
+        <span id="scrubLabel">LIVE</span>
+        <button id="replayBtn" disabled>REPLAY CHAMPION</button>
+      </div>
+    </section>
+  </aside>
+</main>
+
+<footer id="controls">
+  <div class="ctrl-group">
+    <button id="pauseBtn" class="btn">PAUSE</button>
+    <button id="restartBtn" class="btn danger">RESET</button>
+  </div>
+  <div class="ctrl-group" id="speedGroup">
+    <span class="ctrl-label">SPEED</span>
+    <button class="btn speed" data-speed="1">1x</button>
+    <button class="btn speed" data-speed="2">2x</button>
+    <button class="btn speed active" data-speed="4">4x</button>
+    <button class="btn speed" data-speed="8">8x</button>
+    <button class="btn speed" data-speed="16">16x</button>
+    <button class="btn speed" data-speed="32">32x</button>
+    <button class="btn speed" data-speed="64">64x</button>
+    <button class="btn speed" data-speed="0">MAX</button>
+  </div>
+  <div class="ctrl-group keys-hint">SPACE pause &nbsp; 1-8 speed &nbsp; R reset &nbsp; L live</div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
